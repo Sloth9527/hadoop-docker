@@ -2,22 +2,28 @@ FROM jk9527/hadoop:jdk-11.0.9
 
 # pre-installed package
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y ssh rsync \
-    && ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+    && apt-get install -y rsync openssh-server wget \
+    && ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa \
+    && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 WORKDIR /opt
 
 # hadoop env
-ENV HADOOP_VERSION="2.10.1"
-ENV HADOOP_DIR="hadoop-${HADOOP_VERSION}"
-ENV HADOOP_URL="https://mirror.bit.edu.cn/apache/hadoop/common/${HADOOP_DIR}/${HADOOP_DIR}.tar.gz"
-
-ENV HADOOP_HOME=/opt/${HADOOP_DIR}
-ENV PATH ${HADOOP_HOME}/bin:${PATH}
+ENV HADOOP_FILE_NAME="hadoop-2.10.1"
+ENV HADOOP_HOME=/opt/${HADOOP_FILE_NAME}
+ENV PATH ${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin:${PATH}
 
 # install hadoop
-
-RUN wget ${HADOOP_URL} \
-    && tar -xzvf ${HADOOP_DIR}.tar.gz \
-    && rm ${HADOOP_DIR}.tar.gz \
+RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://mirror.bit.edu.cn/apache/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
+    && tar -xzvf ${HADOOP_FILE_NAME}.tar.gz \
+    && rm ${HADOOP_FILE_NAME}.tar.gz \
     && hadoop version
+
+# init node dir
+RUN mkdir -p ~/hdfs/namenode && \ 
+    mkdir -p ~/hdfs/datanode && \
+    mkdir $HADOOP_HOME/logs
+
+# set config
+
+RUN ls -al
