@@ -23,6 +23,6 @@ WORKDIR /opt
 RUN wget --no-check-certificate -O ${JDK_FILE_NAME} -c --header "Cookie: oraclelicense=accept-securebackup-cookie" ${JDK_URL} \
     && tar -zxvf ${JDK_FILE_NAME} \
     && rm ${JDK_FILE_NAME} \
-    && echo "JAVA_HOME="${JAVA_HOME}
+    && echo "JAVA_HOME="${JAVA_HOME} \
     && java -version \
     && javac -version
