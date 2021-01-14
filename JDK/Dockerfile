@@ -5,7 +5,7 @@ RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y wget
 
 # open "https://www.oracle.com/java/technologies/javase-downloads.html", query "AuthParam" value
-ARG AUTH_PARAM
+ENV AUTH_PARAM
 
 ENV JDK_VERSION="11.0.9" 
 ENV JDK_FILE_NAME=jdk-${JDK_VERSION}_linux-x64_bin.tar.gz 
