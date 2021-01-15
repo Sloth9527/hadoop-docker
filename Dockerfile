@@ -17,7 +17,7 @@ ENV PATH ${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin:${PATH}
 RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://mirror.bit.edu.cn/apache/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
     && tar -xzvf ${HADOOP_FILE_NAME}.tar.gz \
     && rm ${HADOOP_FILE_NAME}.tar.gz \
-    && ln -s ${HADOOP_FILE_NAME} hadoop \
+    && mv ${HADOOP_FILE_NAME} hadoop \
     && echo "HADOOP_HOME="${HADOOP_HOME}
     && hadoop version
 
