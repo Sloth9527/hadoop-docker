@@ -9,7 +9,7 @@ ARG AUTH_PARAM="1610620843_7631cdf4ceed6bf9727f6e53c74c40cc"
 
 ENV JDK_VERSION="11.0.9" 
 ENV JDK_FILE_NAME=jdk-${JDK_VERSION}_linux-x64_bin.tar.gz  
-ENV JDK_URL="https://download.oracle.com/otn/java/jdk/${JDK_VERSION}+7/eec35ebefb3f4133bd045b891f05db94/${JDK_FILE_NAME}\?AuthParam\=${AUTH_PARAM}"
+ENV JDK_URL=https://download.oracle.com/otn/java/jdk/${JDK_VERSION}+7/eec35ebefb3f4133bd045b891f05db94/${JDK_FILE_NAME}\?AuthParam\=${AUTH_PARAM}
 
 # java env
 ENV JAVA_HOME=/opt/jdk
