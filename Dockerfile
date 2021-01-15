@@ -10,13 +10,15 @@ WORKDIR /opt
 
 # hadoop env
 ENV HADOOP_FILE_NAME="hadoop-2.10.1"
-ENV HADOOP_HOME=/opt/${HADOOP_FILE_NAME}
+ENV HADOOP_HOME=/opt/hadoop
 ENV PATH ${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin:${PATH}
 
 # install hadoop
 RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://mirror.bit.edu.cn/apache/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
     && tar -xzvf ${HADOOP_FILE_NAME}.tar.gz \
     && rm ${HADOOP_FILE_NAME}.tar.gz \
+    && ln -s ${HADOOP_FILE_NAME} hadoop \
+    && echo "HADOOP_HOME="${HADOOP_HOME}
     && hadoop version
 
 # init node dir
@@ -26,4 +28,4 @@ RUN mkdir -p ~/hdfs/namenode && \
 
 # set config
 
-RUN ls -al
+RUN ls -al 
