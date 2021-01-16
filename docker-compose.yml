@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  hadoop-master:
+    container_name: hadoop-master
+    image: jk9527/hadoop:2.10.1
+    command: master
+    ports: 
+      - 8089:8088
+      - 50071:50070
+    volumes:
+      - ../hdfs_data/namenode:/root/hdfs/namenode
+    networks:
+      - hadoop
+
+  hadoop-slave1:
+    container_name: hadoop-slave1
+    image: jk9527/hadoop:2.10.1
+    volumes:
+      - ../hdfs_data/datanode/slave1:/root/hdfs/datanode
+    networks:
+      - hadoop
+
+networks:
+  hadoop:

@@ -10,6 +10,7 @@ WORKDIR /opt
 
 # hadoop env
 ENV HADOOP_FILE_NAME="hadoop-2.10.1"
+ENV HADOOP_NODE_PATH="/root/hdfs"
 ENV HADOOP_HOME=/opt/hadoop
 ENV PATH ${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin:${PATH}
 
@@ -27,5 +28,16 @@ RUN mkdir -p ~/hdfs/namenode && \
     mkdir $HADOOP_HOME/logs
 
 # set config
+COPY conf ./conf
+COPY scripts ./scripts
 
-RUN ls -al 
+RUN mv ./conf/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml \
+    && mv ./conf/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml \
+    && mv ./conf/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh \
+    && mv ./conf/mapred-site.xml.template $HADOOP_HOME/etc/hadoop/mapred-site.xml.template \
+    && mv ./conf/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml \
+    && mv ./conf/slaves $HADOOP_HOME/etc/hadoop/slaves \
+    && mv ./conf/ssh_config /etc/ssh/ssh_config \
+    && rm -r conf
+
+ENTRYPOINT ["/bin/bash", "./scripts/entrypoint.sh"]

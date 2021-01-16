@@ -13,7 +13,6 @@ ENV JDK_URL=https://download.oracle.com/otn/java/jdk/${JDK_VERSION}+7/eec35ebefb
 
 # java env
 ENV JAVA_HOME=/opt/jdk
-ENV CLASSPATH=${JAVA_HOME}/lib
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # install jdk
