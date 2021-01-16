@@ -8,8 +8,8 @@ services:
       IMAGE_ROLE: master
       SLAVES: "hadoop-slave1 hadoop-slave2 hadoop-slave3"
     ports: 
-      - 8089:8088
-      - 50071:50070
+      - 8088:8088
+      - 50070:50070
     volumes:
       - ../hdfs_data/namenode:/root/hdfs/namenode
     networks:
