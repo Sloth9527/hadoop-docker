@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ssh start
 service ssh start
 
 # write slaves file with SLAVES env
@@ -13,7 +14,7 @@ if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
         echo "Write slaves file successfully"
 fi
 
-format node && start hdfs
+# format node && start hdfs
 if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
     then
         if [ ! -d /root/hdfs/namenode/current ];
