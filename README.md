@@ -42,6 +42,10 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
 
     将 slave 容器添加到 master 容器依赖
 
+- ports
+
+    需要确认映射到本地的端口没有被占用
+
 - docker-compose.yml:
 
   ```
@@ -105,7 +109,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
    ```
      docker exec -it hadoop-master bash
    ```
-3. 查看 jps
+3. 查看 java 进程是否启动
 
     master 容器
 
@@ -124,6 +128,8 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
       44 DataNode
       463 Jps
    ```
+- NameNode http服务的端口: [http://localhost:50070](http://localhost:50070)
+- ResourceManager http服务的端口: [http://localhost:8088](http://localhost:8088)
 
 ### **5. 停止容器**
 
