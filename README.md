@@ -133,18 +133,26 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
 
 ## **IDEA 链接 Hadoop 容器**
 
-- [ ] TODO 更新 链接步骤
+- [ ] TODO 教程
+
+### **1. 创建一个 Maven 项目**
+
+### **2. 添加 Dependency**
+
+### **3. 添加 Resources**
+
+### **4. 添加 Resources**
 
 ## **本地构建镜像**
 
 ### **1. 构建 JDK 镜像**
 
-1. 构建jdk镜像需要登陆 [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) 帐号, 获取下载 11.0.9 版本的 authParam.
+1. 构建jdk镜像需要登陆 [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) 帐号, 获取下载 8u271 版本的 authParam.
 
 2. 开始构建：
 
    ```
-     docker build -t hadoop:jdk-11.0.9  --build-arg AUTH_PARAM=1610788919_1582412e6f81f833b06686828d7664bf . 
+     docker build -t hadoop:jdk-8u271  --build-arg AUTH_PARAM=1610788919_1582412e6f81f833b06686828d7664bf . 
    ```
 
 ### **2. 构建 Hadoop 镜像** 
@@ -152,7 +160,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
 1. 将 DockerFile 修改为本地 jdk 镜像 tag
 
    ```
-     FROM hadoop:jdk-11.0.9
+     FROM hadoop:jdk-8u271
    ```
 
 2. 如需修改hadoop配置，进入 [conf](./conf) 文件夹修改配置

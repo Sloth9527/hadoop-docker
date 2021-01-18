@@ -1,4 +1,4 @@
-FROM jk9527/hadoop:jdk-11.0.9
+FROM jk9527/hadoop:jdk-8u271
 
 # pre-installed package
 RUN apt-get update && apt-get upgrade -y \
