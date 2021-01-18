@@ -24,10 +24,12 @@ if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
                 hdfs namenode -format \
                 && echo "Formatted successfully" \
                 && echo "Start hdfs..." \
-                && start-dfs.sh
+                && start-dfs.sh \
+                && start-yarn.sh
             else
                 echo "Start hdfs..."
-                start-dfs.sh
+                start-dfs.sh \
+                && start-yarn.sh
         fi
 fi
 

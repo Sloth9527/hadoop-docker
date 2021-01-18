@@ -107,22 +107,22 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
    ```
 3. 查看 jps
 
-    - [ ] TODO 更新shell例子
-
     master 容器
 
    ```
       root@82cfc6f195ed:/opt# jps
+      1142 ResourceManager
       135 NameNode
-      1017 Jps
       361 SecondaryNameNode
+      1243 Jps
    ```
     slave 容器
 
    ```
       root@9a052552ecba:/opt# jps
-      233 Jps
+      291 NodeManager
       44 DataNode
+      463 Jps
    ```
 
 ### **5. 容器停止**
