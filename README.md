@@ -1,16 +1,16 @@
-# hadoop-docker
+# **hadoop-docker**
 
-## 前言
+## **前言**
 
 本项目使用 docker-compose 在单机上快速搭建  hadoop 集群，方便基于 hadoop 的开发与测试.
 
-## 快速启动
+## **快速启动**
 
-### 1. 准备
+### **1. 准备**
 
 本地需要提前安装 [docker](https://docs.docker.com/engine/install/) && [docker-compose](https://docs.docker.com/compose/install/)
 
-### 2. 拉取镜像
+### **2. 拉取镜像**
 
 ```
   docker-compose -f docker-compose.yml pull
@@ -18,11 +18,13 @@
 
 如果无法下载镜像或者速度太慢可选择 [本地构建镜像](#本地构建镜像)
 
-### 3. 配置
+### **3. 配置**
 
 hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运行 namenode 和 ResourceManager, slave 容器中运行 datanode 和 NodeManager.
 
-#### hadoop-master 容器配置参数
+容器将在 ../hdfs_data 位置存储 namenode 和 datanode
+
+#### **hadoop-master 容器配置参数**
 
 - namenode 文件夹地址:
 
@@ -70,7 +72,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
         - hadoop-slave3
   ```
 
-#### hadoop-slave 容器配置参数
+#### **hadoop-slave 容器配置参数**
 
 - datanode 文件夹地址:
 
@@ -90,13 +92,14 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
         - hadoop
   ```
 
-### 4. 容器启动
+### **4. 容器启动**
 
 1. 启动
 
    ```
      docker-compose -f docker-compose.yml up -d
    ```
+
 2. 进入容器
 
    ```
@@ -122,19 +125,19 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
       44 DataNode
    ```
 
-### 5. 容器停止
+### **5. 容器停止**
 
 ```
   docker-compose -f docker-compose.yml down
 ```
 
-## IDEA 链接 Hadoop 容器
+## **IDEA 链接 Hadoop 容器**
 
 - [ ] TODO 更新 链接步骤
 
-## 本地构建镜像
+## **本地构建镜像**
 
-### 1. 构建 JDK 镜像
+### **1. 构建 JDK 镜像**
 
 1. 构建jdk镜像需要登陆 [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) 帐号, 获取下载 11.0.9 版本的 authParam.
 
@@ -144,7 +147,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
      docker build -t hadoop:jdk-11.0.9  --build-arg AUTH_PARAM=1610788919_1582412e6f81f833b06686828d7664bf . 
    ```
 
-### 2. 构建 Hadoop 镜像 
+### **2. 构建 Hadoop 镜像** 
 
 1. 将 DockerFile 修改为本地 jdk 镜像 tag
 
@@ -160,10 +163,9 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
      docker build -t hadoop:2.10.1 .
    ```
 
-### 3. 配置 docker-compose.yml
+### **3. 修改 docker-compose.yml**
 
-将所有容器的 image 都123
-修改为本地镜像 tag
+将所有容器的 image 都修改为本地镜像 tag
 
 ```
    services:
