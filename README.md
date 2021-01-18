@@ -10,7 +10,7 @@
 
 本地需要提前安装 [docker](https://docs.docker.com/engine/install/) && [docker-compose](https://docs.docker.com/compose/install/)
 
-### **2. 配置**
+### **2. 创建 [docker-compose.yml](docker-compose.yml)**
 
 hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运行 namenode 和 ResourceManager, slave 容器中运行 datanode 和 NodeManager.
 
@@ -125,7 +125,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
       463 Jps
    ```
 
-### **5. 容器停止**
+### **5. 停止容器**
 
 ```
   docker-compose -f docker-compose.yml down
@@ -145,19 +145,21 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
 
 ## **本地构建镜像**
 
-### **1. 构建 JDK 镜像**
+### **1. clone 项目到本地**
+
+### **2. 构建 JDK 镜像** (如果有其他JDK镜像此步骤可跳过)
 
 1. 构建jdk镜像需要登陆 [Oracle](https://www.oracle.com/java/technologies/javase-downloads.html) 帐号, 获取下载 8u271 版本的 authParam.
 
 2. 开始构建：
 
    ```
-     docker build -t hadoop:jdk-8u271  --build-arg AUTH_PARAM=1610788919_1582412e6f81f833b06686828d7664bf . 
+    docker build -f ./JDK/8u271/Dockerfile -t hadoop:jdk-8u271  --build-arg AUTH_PARAM=1610788919_1582412e6f81f833b06686828d7664bf . 
    ```
 
-### **2. 构建 Hadoop 镜像** 
+### **3. 构建 Hadoop 镜像** 
 
-1. 将 DockerFile 修改为本地 jdk 镜像 tag
+1. 如果有其他 JDK 镜像, 则将 DockerFile 修改为其他 JDK 镜像 tag
 
    ```
      FROM hadoop:jdk-8u271
