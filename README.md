@@ -10,15 +10,7 @@
 
 本地需要提前安装 [docker](https://docs.docker.com/engine/install/) && [docker-compose](https://docs.docker.com/compose/install/)
 
-### **2. 拉取镜像**
-
-```
-  docker-compose -f docker-compose.yml pull
-```
-
-如果无法下载镜像或者速度太慢可选择 [本地构建镜像](#本地构建镜像)
-
-### **3. 配置**
+### **2. 配置**
 
 hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运行 namenode 和 ResourceManager, slave 容器中运行 datanode 和 NodeManager.
 
@@ -91,6 +83,14 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
       networks:
         - hadoop
   ```
+
+### **3. 拉取镜像**
+
+```
+  docker-compose -f docker-compose.yml pull
+```
+
+如果无法下载镜像或者速度太慢可选择 [本地构建镜像](#本地构建镜像)
 
 ### **4. 容器启动**
 
