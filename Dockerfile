@@ -23,20 +23,21 @@ RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://mirror.bit.edu.cn/apache/hadoop/
     && hadoop version
 
 # init node dir
-RUN mkdir -p ~/hdfs/namenode && \ 
-    mkdir -p ~/hdfs/datanode && \
-    mkdir $HADOOP_HOME/logs
+RUN mkdir -p ~/hdfs/namenode \ 
+    && mkdir -p ~/hdfs/datanode \
+    && mkdir $HADOOP_HOME/logs 
+
+# backup conf
+# RUN cp -r ${HADOOP_HOME}/etc/hadoop /opt/conf_backup \
+#     && tar -czvf conf_backup.tar.gz ./conf_backup \
+#     && rm -r ./conf_backup
 
 # set config
 COPY conf ./conf
 COPY scripts ./scripts
 
-RUN mv ./conf/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml \
-    && mv ./conf/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml \
-    && mv ./conf/hadoop-env.sh $HADOOP_HOME/etc/hadoop/hadoop-env.sh \
-    && mv ./conf/mapred-site.xml.template $HADOOP_HOME/etc/hadoop/mapred-site.xml.template \
-    && mv ./conf/yarn-site.xml $HADOOP_HOME/etc/hadoop/yarn-site.xml \
-    && mv ./conf/ssh_config /etc/ssh/ssh_config \
-    && rm -r conf
+RUN mv ./conf/ssh_config /etc/ssh/ssh_config \
+    && rm -r $HADOOP_HOME/etc/hadoop \
+    && mv -f ./conf $HADOOP_HOME/etc/hadoop
 
 ENTRYPOINT ["/bin/bash", "./scripts/entrypoint.sh"]
