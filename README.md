@@ -139,15 +139,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
 
 ## **IDEA 链接 Hadoop 容器**
 
-- [ ] TODO 教程
-
-### **1. 创建一个 Maven 项目**
-
-### **2. 添加 Dependency**
-
-### **3. 添加 Resources**
-
-### **4. 添加 Resources**
+- [连接集群教程](./docs/idea.md)
 
 ## **本地构建镜像**
 
