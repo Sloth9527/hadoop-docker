@@ -139,7 +139,7 @@ hadoop 容器将分为 master 和 slave 两个类型, 其中 master 容器中运
 
 ## **IDEA 链接 Hadoop 容器**
 
-- [连接集群教程](./docs/idea.md)
+- [连接集群教程](./docs/idea_connect_hadoop_cluster.md)
 
 ## **本地构建镜像**
 
