@@ -22,26 +22,50 @@ services:
       - hadoop-slave3
 
   hadoop-slave1:
+    hostname: hadoop-slave1
     container_name: hadoop-slave1
     image: jk9527/hadoop:2.10.1
+    ports: 
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
     volumes:
       - ../hdfs_data/datanode/slave1:/root/hdfs/datanode
+      - ../zk_data/data/slave1:/root/zk_data
+      - ../zk_data/log/slave1:/var/zk_log
+      - ./zk_conf/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
     networks:
       - hadoop
 
   hadoop-slave2:
+    hostname: hadoop-slave2
     container_name: hadoop-slave2
     image: jk9527/hadoop:2.10.1
+    ports: 
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
     volumes:
       - ../hdfs_data/datanode/slave2:/root/hdfs/datanode
+      - ../zk_data/data/slave2:/root/zk_data
+      - ../zk_data/log/slave2:/var/zk_log
+      - ./zk_conf/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
     networks:
       - hadoop
 
   hadoop-slave3:
+    hostname: hadoop-slave3
     container_name: hadoop-slave3
     image: jk9527/hadoop:2.10.1
+    ports: 
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
     volumes:
       - ../hdfs_data/datanode/slave3:/root/hdfs/datanode
+      - ../zk_data/data/slave3:/root/zk_data
+      - ../zk_data/log/slave3:/var/zk_log
+      - ./zk_conf/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
     networks:
       - hadoop
 

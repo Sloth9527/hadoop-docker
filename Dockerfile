@@ -15,12 +15,11 @@ ENV HADOOP_HOME=/opt/hadoop
 ENV PATH ${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin:${PATH}
 
 # install hadoop
+# RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://downloads.apache.org/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
 RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://mirror.bit.edu.cn/apache/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
     && tar -xzvf ${HADOOP_FILE_NAME}.tar.gz \
     && rm ${HADOOP_FILE_NAME}.tar.gz \
-    && mv ${HADOOP_FILE_NAME} hadoop \
-    && echo "HADOOP_HOME="${HADOOP_HOME} \
-    && hadoop version
+    && mv ${HADOOP_FILE_NAME} hadoop
 
 # init node dir
 RUN mkdir -p ~/hdfs/namenode \ 
@@ -39,5 +38,17 @@ COPY scripts ./scripts
 RUN mv ./conf/ssh_config /etc/ssh/ssh_config \
     && rm -r $HADOOP_HOME/etc/hadoop \
     && mv -f ./conf $HADOOP_HOME/etc/hadoop
+
+# install zookeeper
+ENV ZOOKEEPER_HOME=/opt/zookeeper
+ENV PATH ${ZOOKEEPER_HOME}/bin:${PATH}
+
+# RUN wget https://downloads.apache.org/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz \
+RUN wget https://apache.claz.org/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz \
+    && tar -xzvf apache-zookeeper-3.6.2-bin.tar.gz \
+    && rm apache-zookeeper-3.6.2-bin.tar.gz \
+    && mv apache-zookeeper-3.6.2-bin zookeeper
+
+EXPOSE 2181 2888 3888 8080
 
 ENTRYPOINT ["/bin/bash", "./scripts/entrypoint.sh"]
