@@ -31,14 +31,6 @@ RUN mkdir -p ~/hdfs/namenode \
 #     && tar -czvf conf_backup.tar.gz ./conf_backup \
 #     && rm -r ./conf_backup
 
-# set config
-COPY conf ./conf
-COPY scripts ./scripts
-
-RUN mv ./conf/ssh_config /etc/ssh/ssh_config \
-    && rm -r $HADOOP_HOME/etc/hadoop \
-    && mv -f ./conf $HADOOP_HOME/etc/hadoop
-
 # install zookeeper
 ENV ZOOKEEPER_HOME=/opt/zookeeper
 ENV PATH ${ZOOKEEPER_HOME}/bin:${PATH}
@@ -48,6 +40,10 @@ RUN wget https://apache.claz.org/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.
     && tar -xzvf apache-zookeeper-3.6.2-bin.tar.gz \
     && rm apache-zookeeper-3.6.2-bin.tar.gz \
     && mv apache-zookeeper-3.6.2-bin zookeeper
+
+# set config
+COPY conf/ssh/ssh_config /etc/ssh/ssh_config
+COPY scripts ./scripts
 
 EXPOSE 2181 2888 3888 8080
 

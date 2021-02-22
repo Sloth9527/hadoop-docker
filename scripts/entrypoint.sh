@@ -3,6 +3,13 @@
 # ssh start
 service ssh start
 
+if [[ -z $IMAGE_ROLE || $IMAGE_ROLE != "master" ]];
+  then
+    echo "Start zookeeper_id_$ZOO_MY_ID ..."
+    echo $ZOO_MY_ID > /root/zk_data/myid
+    zkServer.sh start
+fi
+
 # write slaves file with SLAVES env
 if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
   then
@@ -31,13 +38,6 @@ if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
         start-dfs.sh \
         && start-yarn.sh
     fi
-fi
-
-if [[ -n $IMAGE_ROLE || $IMAGE_ROLE != "master" ]];
-  then
-    echo "Start zookeeper_id_$ZOO_MY_ID ..."
-    echo $ZOO_MY_ID > /root/zk_data/myid
-    zkServer.sh start
 fi
 
 echo "Start successfully"

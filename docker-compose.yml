@@ -13,7 +13,8 @@ services:
       - 8088:8088
       - 50070:50070
     volumes:
-      - ../hdfs_data/namenode:/root/hdfs/namenode
+      - ./conf/hadoop:/opt/hadoop/etc/hadoop
+      - ../hdfs_data/master:/root/hdfs
     networks:
       - hadoop
     depends_on:
@@ -30,10 +31,10 @@ services:
     environment:
       ZOO_MY_ID: 1
     volumes:
-      - ../hdfs_data/datanode/slave1:/root/hdfs/datanode
-      - ../zk_data/data/slave1:/root/zk_data
-      - ../zk_data/log/slave1:/var/zk_log
-      - ./zk_conf/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
+      - ./conf/hadoop:/opt/hadoop/etc/hadoop
+      - ../hdfs_data/slave1:/root/hdfs
+      - ../zk_data/slave1:/root/zk_data
+      - ./conf/zk/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
     networks:
       - hadoop
 
@@ -46,10 +47,10 @@ services:
     environment:
       ZOO_MY_ID: 2
     volumes:
-      - ../hdfs_data/datanode/slave2:/root/hdfs/datanode
-      - ../zk_data/data/slave2:/root/zk_data
-      - ../zk_data/log/slave2:/var/zk_log
-      - ./zk_conf/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
+      - ./conf/hadoop:/opt/hadoop/etc/hadoop
+      - ../hdfs_data/slave2:/root/hdfs
+      - ../zk_data/slave2:/root/zk_data
+      - ./conf/zk/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
     networks:
       - hadoop
 
@@ -62,10 +63,10 @@ services:
     environment:
       ZOO_MY_ID: 3
     volumes:
-      - ../hdfs_data/datanode/slave3:/root/hdfs/datanode
-      - ../zk_data/data/slave3:/root/zk_data
-      - ../zk_data/log/slave3:/var/zk_log
-      - ./zk_conf/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
+      - ./conf/hadoop:/opt/hadoop/etc/hadoop
+      - ../hdfs_data/slave3:/root/hdfs
+      - ../zk_data/slave3:/root/zk_data
+      - ./conf/zk/zoo.cfg:/opt/zookeeper/conf/zoo.cfg
     networks:
       - hadoop
 
