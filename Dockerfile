@@ -7,6 +7,7 @@ RUN apt-get update && apt-get upgrade -y \
     && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 WORKDIR /opt
+USER root
 
 # hadoop env
 ENV HADOOP_FILE_NAME="hadoop-2.10.1"
@@ -16,7 +17,7 @@ ENV PATH ${HADOOP_HOME}/sbin:${HADOOP_HOME}/bin:${PATH}
 
 # install hadoop
 # RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://downloads.apache.org/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
-RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://mirror.bit.edu.cn/apache/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
+RUN wget -O ${HADOOP_FILE_NAME}.tar.gz "https://apache.claz.org/hadoop/common/${HADOOP_FILE_NAME}/${HADOOP_FILE_NAME}.tar.gz" \
     && tar -xzvf ${HADOOP_FILE_NAME}.tar.gz \
     && rm ${HADOOP_FILE_NAME}.tar.gz \
     && mv ${HADOOP_FILE_NAME} hadoop

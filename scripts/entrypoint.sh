@@ -24,20 +24,11 @@ fi
 # format node && start hdfs
 if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
   then
-    if [ ! -d /root/hdfs/namenode/current ];
-      then
-        echo "Namenode is not formatted!"
-        echo "Start format namenode..."
-        hdfs namenode -format \
-        && echo "Formatted successfully" \
-        && echo "Start hdfs..." \
-        && start-dfs.sh \
-        && start-yarn.sh
-      else
-        echo "Start hdfs..."
-        start-dfs.sh \
-        && start-yarn.sh
-    fi
+    echo "Start hdfs..."
+    start-dfs.sh \
+    && echo "Start yarn..." \
+    && ssh hadoop-slave1 "source /etc/profile;sh -c \"/opt/hadoop/sbin/start-yarn.sh\"" \
+    && ssh hadoop-slave2 "source /etc/profile;sh -c \"/opt/hadoop/sbin/yarn-daemon.sh start resourcemanager\""
 fi
 
 echo "Start successfully"

@@ -10,7 +10,6 @@ services:
     ports: 
       - 50010:50010
       - 9000:9000
-      - 8088:8088
       - 50070:50070
     volumes:
       - ./conf/hadoop:/opt/hadoop/etc/hadoop
@@ -28,6 +27,7 @@ services:
     image: jk9527/hadoop:2.10.1
     ports: 
       - 2181:2181
+      - 8088:8088
     environment:
       ZOO_MY_ID: 1
     volumes:
@@ -44,6 +44,7 @@ services:
     image: jk9527/hadoop:2.10.1
     ports: 
       - 2182:2181
+      - 8089:8088
     environment:
       ZOO_MY_ID: 2
     volumes:
@@ -60,6 +61,8 @@ services:
     image: jk9527/hadoop:2.10.1
     ports: 
       - 2183:2181
+      - 9001:9000
+      - 50071:50070
     environment:
       ZOO_MY_ID: 3
     volumes:

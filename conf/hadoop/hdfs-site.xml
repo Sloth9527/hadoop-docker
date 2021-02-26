@@ -17,67 +17,90 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-  <!-- <property>
+  <!--指定namenode名称空间的存储地址 -->
+  <property>
     <name>dfs.namenode.name.dir</name>
     <value>file:///root/hdfs/namenode</value>
-  </property> -->
-  <!-- <property>
+  </property>
+  <!--指定datanode数据存储地址 -->
+  <property>
     <name>dfs.datanode.data.dir</name>
     <value>file:///root/hdfs/datanode</value>
-  </property> -->
+  </property>
+  <!--指定数据冗余份数 -->
   <property>
     <name>dfs.replication</name>
     <value>2</value>
   </property>
+
   <!-- <property>
     <name>dfs.namenode.secondary.http-address</name>
     <value>hadoop-slave3:50090</value>
   </property> -->
 
+  <!--指定 hdfs 的 nameservice 为 mycluster ，需要和 core-site.xml 中的保持一致 -->
   <property>
     <name>dfs.nameservices</name>
     <value>mycluster</value>
   </property>
+  <!-- mycluster 下面有两个NameNode，分别是nn1，nn2 -->
   <property>
     <name>dfs.ha.namenodes.mycluster</name>
     <value>nn1,nn2</value>
   </property>
 
+  <!-- nn1的RPC通信地址 -->
   <property>
-    <name>dfs.namenode.rpc-address.nn1</name>
-    <value>hadoop-master:8020</value>
+    <name>dfs.namenode.rpc-address.mycluster.nn1</name>
+    <value>hadoop-master:9000</value>
   </property>
+  <!-- nn1的http通信地址 -->
   <property>
-    <name>dfs.namenode.rpc-address.nn2</name>
-    <value>hadoop-slave3:8020</value>
+    <name>dfs.namenode.http-address.mycluster.nn1</name>
+    <value>hadoop-master:50070</value>
+  </property>
+  <!-- nn2的RPC通信地址 -->
+  <property>
+    <name>dfs.namenode.rpc-address.mycluster.nn2</name>
+    <value>hadoop-slave3:9000</value>
+  </property>
+  <!-- nn2的http通信地址 -->
+  <property>
+    <name>dfs.namenode.http-address.mycluster.nn2</name>
+    <value>hadoop-slave3:50070</value>
   </property>
 
-  <property>
-    <name>dfs.client.failover.proxy.provider.mycluster</name>
-    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
-  </property>
-
+  <!-- 指定NameNode的元数据在JournalNode上的存放位置 -->
   <property>
     <name>dfs.namenode.shared.edits.dir</name>
-    <value>qjournal://hadoop-slave1:8485;hadoop-slave2:8485;hadoop-slave3:8485/root/hdfs/mycluster</value>
+    <value>qjournal://hadoop-slave1:8485;hadoop-slave2:8485;hadoop-slave3:8485/mycluster</value>
   </property>
+  <!-- 指定JournalNode在本地磁盘存放数据的位置 -->
   <property>
     <name>dfs.journalnode.edits.dir</name>
     <value>/root/hdfs/ha/jnn</value>
   </property>
 
+  <!-- 配置隔离机制方法，多个机制用换行分割，即每个机制暂用一行-->
   <property>
     <name>dfs.ha.fencing.methods</name>
-    <value>sshfence</value>
+    <value>shell(/bin/true)</value>
   </property>
+  <!-- 使用sshfence隔离机制时需要ssh免登陆 -->
   <property>
     <name>dfs.ha.fencing.ssh.private-key-files</name>
     <value>/root/.ssh/id_rsa.pub</value>
   </property>
+
+  <!-- 开启NameNode失败自动切换 -->
   <property>
     <name>dfs.ha.automatic-failover.enabled</name>
     <value>true</value>
   </property>
-
+  <!-- 配置失败自动切换实现方式 -->
+  <property>
+    <name>dfs.client.failover.proxy.provider.mycluster</name>
+    <value>org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</value>
+  </property>
   
 </configuration>
