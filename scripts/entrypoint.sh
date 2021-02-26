@@ -38,4 +38,10 @@ fi
 
 echo "Start successfully"
 
-tail -f /opt/hadoop/logs/*.log
+
+if [[ -z $IMAGE_ROLE || $IMAGE_ROLE != "master" ]];
+  then
+    tail -f /opt/hadoop/logs/*.log
+  else
+    tail -f /dev/null
+fi
