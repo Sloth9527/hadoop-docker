@@ -30,7 +30,6 @@ if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
     start-dfs.sh \
     && echo "Start yarn..." \
     && ssh hadoop-slave1 "source /etc/profile;sh -c \"/opt/hadoop/sbin/start-yarn.sh\"" \
-    && ssh hadoop-slave1 "cat /root/yarn_pid_dir/yarn--resourcemanager.pid" \
     && ssh hadoop-slave2 "source /etc/profile;sh -c \"/opt/hadoop/sbin/yarn-daemon.sh start resourcemanager\"" \
     && sh /opt/scripts/jps.sh
 fi
