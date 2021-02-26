@@ -13,7 +13,7 @@ services:
       - 50070:50070
     volumes:
       - ./conf/hadoop:/opt/hadoop/etc/hadoop
-      - ./upload:/root/upload
+      - ../hadoop_master_upload:/root/upload
       - ../hdfs_data/master:/root/hdfs
     networks:
       - hadoop
