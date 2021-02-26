@@ -3,14 +3,16 @@
 # ssh start
 service ssh start
 
-logfile = /opt/hadoop/logs/entrypoints.log
+logfile=/opt/hadoop/logs/entrypoints.log
 
-echo "YARN_PID_DIR: $YARN_PID_DIR" >> logfile
-echo "IMAGE_ROLE: $IMAGE_ROLE" >> logfile
+echo "YARN_PID_DIR: $YARN_PID_DIR" >> $logfile
+echo "IMAGE_ROLE: $IMAGE_ROLE" >> $logfile
+
+ls /opt/hadoop/logs
 
 if [[ -z $IMAGE_ROLE || $IMAGE_ROLE != "master" ]];
   then
-    echo "Start zookeeper_id_$ZOO_MY_ID ..." >> logfile
+    echo "Start zookeeper_id_$ZOO_MY_ID ..." >> $logfile
     echo $ZOO_MY_ID > /root/zk_data/myid
     zkServer.sh start
 fi
@@ -38,6 +40,5 @@ if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
 fi
 
 echo "Start successfully"
-
 
 tail -f /opt/hadoop/logs/*.log
