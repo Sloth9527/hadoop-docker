@@ -1,6 +1,6 @@
 #/bin/bash
 
-cmd="hdfs dfs -"
+cmd="hadoop fs -"
 
 if test -z $0;
   then
@@ -11,4 +11,4 @@ fi
 
 echo $cmd
 
-docker exec -it hadoop-master bash -c "${cmd}"
+docker exec -it hadoopMaster bash -c "${cmd}"

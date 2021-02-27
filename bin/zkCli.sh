@@ -1,3 +1,3 @@
 #/bin/bash
 
-docker exec -it hadoop-master bash -c "zkCli.sh"
+docker exec -it hadoopSlave1 bash -c "zkCli.sh"

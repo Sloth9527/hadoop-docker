@@ -26,7 +26,7 @@
   <!-- 指定 zk 集群地址 -->
   <property>
     <name>yarn.resourcemanager.zk-address</name>
-    <value>hadoop-slave1:2181,hadoop-slave2:2181,hadoop-slave3:2181</value>
+    <value>hadoopSlave1:2181,hadoopSlave2:2181,hadoopSlave3:2181</value>
   </property>
   <!-- 标识集群 确保RM 不会接管另一个集群的活动 -->
   <property>
@@ -40,10 +40,14 @@
   </property>
   <property>
     <name>yarn.resourcemanager.hostname.rm1</name>
-    <value>hadoop-slave1</value>
+    <value>hadoopSlave1</value>
   </property>
   <property>
     <name>yarn.resourcemanager.hostname.rm2</name>
-    <value>hadoop-slave2</value>
+    <value>hadoopSlave2</value>
+  </property>
+  <property>
+    <name>yarn.nodemanager.resource.cpu-vcores</name>
+    <value>2</value>
   </property>
 </configuration>

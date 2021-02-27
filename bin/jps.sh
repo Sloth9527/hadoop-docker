@@ -1,3 +1,3 @@
 #/bin/bash
 
-docker exec -it hadoop-master bash -c "sh /opt/scripts/jps.sh"
+docker exec -it hadoopMaster bash -c "sh /opt/scripts/jps.sh"

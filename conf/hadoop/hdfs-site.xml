@@ -35,7 +35,7 @@
 
   <!-- <property>
     <name>dfs.namenode.secondary.http-address</name>
-    <value>hadoop-slave3:50090</value>
+    <value>hadoopSlave3:50090</value>
   </property> -->
 
   <!--指定 hdfs 的 nameservice 为 mycluster ，需要和 core-site.xml 中的保持一致 -->
@@ -52,28 +52,28 @@
   <!-- nn1的RPC通信地址 -->
   <property>
     <name>dfs.namenode.rpc-address.mycluster.nn1</name>
-    <value>hadoop-master:9000</value>
+    <value>hadoopMaster:9000</value>
   </property>
   <!-- nn1的http通信地址 -->
   <property>
     <name>dfs.namenode.http-address.mycluster.nn1</name>
-    <value>hadoop-master:50070</value>
+    <value>hadoopMaster:50070</value>
   </property>
   <!-- nn2的RPC通信地址 -->
   <property>
     <name>dfs.namenode.rpc-address.mycluster.nn2</name>
-    <value>hadoop-slave3:9000</value>
+    <value>hadoopSlave3:9000</value>
   </property>
   <!-- nn2的http通信地址 -->
   <property>
     <name>dfs.namenode.http-address.mycluster.nn2</name>
-    <value>hadoop-slave3:50070</value>
+    <value>hadoopSlave3:50070</value>
   </property>
 
   <!-- 指定NameNode的元数据在JournalNode上的存放位置 -->
   <property>
     <name>dfs.namenode.shared.edits.dir</name>
-    <value>qjournal://hadoop-slave1:8485;hadoop-slave2:8485;hadoop-slave3:8485/mycluster</value>
+    <value>qjournal://hadoopSlave1:8485;hadoopSlave2:8485;hadoopSlave3:8485/mycluster</value>
   </property>
   <!-- 指定JournalNode在本地磁盘存放数据的位置 -->
   <property>
