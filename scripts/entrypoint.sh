@@ -7,14 +7,12 @@ logfile=/opt/hadoop/logs/entrypoints.log
 
 echo "YARN_PID_DIR: $YARN_PID_DIR" >> $logfile
 echo "IMAGE_ROLE: $IMAGE_ROLE" >> $logfile
-
-ls /opt/hadoop/logs
+echo "SLAVES: $SLAVES" >> $logfile
 
 if [[ -z $IMAGE_ROLE || $IMAGE_ROLE != "master" ]];
   then
-    echo "Start zookeeper_id_$ZOO_MY_ID ..." >> $logfile
+    echo "zookeeper_id: $ZOO_MY_ID" >> $logfile
     echo $ZOO_MY_ID > /root/zk_data/myid
-    zkServer.sh start
 fi
 
 # write slaves file with SLAVES env
@@ -26,17 +24,6 @@ if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
     echo "cat /opt/hadoop/etc/hadoop/slaves :"
     cat /opt/hadoop/etc/hadoop/slaves
     echo "Write slaves file successfully"
-fi
-
-# format node && start hdfs
-if [[ -n $IMAGE_ROLE && $IMAGE_ROLE == "master" ]];
-  then
-    echo "Start hdfs..."
-    start-dfs.sh \
-    && echo "Start yarn..." \
-    && ssh hadoopSlave1 "source /etc/profile;sh -c \"/opt/hadoop/sbin/start-yarn.sh\"" \
-    && ssh hadoopSlave2 "source /etc/profile;sh -c \"/opt/hadoop/sbin/yarn-daemon.sh start resourcemanager\"" \
-    && sh /opt/scripts/jps.sh
 fi
 
 echo "Start successfully"
