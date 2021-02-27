@@ -1,6 +1,21 @@
 version: "3.7"
 
 services:
+  nginx_proxy:
+    hostname: nginx_proxy
+    container_name: nginx_proxy
+    image: nginx:1.18.0
+    ports:
+      - 50070:50070
+      - 2181:2181
+      - 8088:8088
+      - 9000:9000
+    volumes:
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ../hdfs_data/log:/root/logs
+    networks:
+      - hadoop
+
   hadoopMaster:
     hostname: hadoopMaster
     container_name: hadoopMaster
@@ -8,10 +23,8 @@ services:
     environment:
       IMAGE_ROLE: master
       SLAVES: "hadoopSlave1 hadoopSlave2 hadoopSlave3"
-    ports: 
-      - 50010:50010
-      - 9000:9000
-      - 50070:50070
+    ports:
+      - 50071:50070
     volumes:
       - ./conf/hadoop:/opt/hadoop/etc/hadoop
       - ../hadoop_master_upload:/root/upload
@@ -27,11 +40,10 @@ services:
     hostname: hadoopSlave1
     container_name: hadoopSlave1
     image: jk9527/hadoop:2.10.1
-    ports: 
-      - 2181:2181
-      - 8088:8088
     environment:
       ZOO_MY_ID: 1
+    ports:
+      - 8089:8088
     volumes:
       - ./conf/hadoop:/opt/hadoop/etc/hadoop
       - ../hdfs_data/slave1:/root/hdfs
@@ -44,9 +56,6 @@ services:
     hostname: hadoopSlave2
     container_name: hadoopSlave2
     image: jk9527/hadoop:2.10.1
-    ports: 
-      - 2182:2181
-      - 8089:8088
     environment:
       ZOO_MY_ID: 2
     volumes:
@@ -61,10 +70,6 @@ services:
     hostname: hadoopSlave3
     container_name: hadoopSlave3
     image: jk9527/hadoop:2.10.1
-    ports: 
-      - 2183:2181
-      - 9001:9000
-      - 50071:50070
     environment:
       ZOO_MY_ID: 3
     volumes:
