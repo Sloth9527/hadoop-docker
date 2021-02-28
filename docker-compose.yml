@@ -9,7 +9,6 @@ services:
       - 50070:50070
       - 2181:2181
       - 8088:8088
-      - 9000:9000
     volumes:
       - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ../hdfs_data/log:/root/logs
@@ -24,7 +23,7 @@ services:
       IMAGE_ROLE: master
       SLAVES: "hadoopSlave1 hadoopSlave2 hadoopSlave3"
     ports:
-      - 50071:50070
+      - 9000:9000
     volumes:
       - ./conf/hadoop:/opt/hadoop/etc/hadoop
       - ../hadoop_master_upload:/root/upload
@@ -42,8 +41,6 @@ services:
     image: jk9527/hadoop:2.10.1
     environment:
       ZOO_MY_ID: 1
-    ports:
-      - 8089:8088
     volumes:
       - ./conf/hadoop:/opt/hadoop/etc/hadoop
       - ../hdfs_data/slave1:/root/hdfs
